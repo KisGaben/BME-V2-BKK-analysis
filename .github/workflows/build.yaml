@@ -2,8 +2,8 @@ name: build
 
 on:
   push:
-    tags:
-    - '*'
+    branches:
+    - 'main'
 
 jobs:
   build:
@@ -11,21 +11,22 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Python 3.8
+    - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: 3.10
 
     - name: Install dependencies
       run: |
+        pip install pip-tools
+        pip-compile
         pip install -r requirements.txt
 
-    # Build the book
     - name: Build notebook
       run: |
         mkdir build
-        jupyter nbconvert --to notebook --execute final.ipynb
-        jupyter nbconvert final.nbconvert.ipynb --to html --no-input --template classic --output build/index.html
+#        jupyter nbconvert --to notebook --execute final.ipynb # Need more memory in GitHub runner, better to run local
+        jupyter nbconvert final.ipynb --to html --no-input --template classic --output build/index.html
 
     - name: Publish content
       uses: actions/upload-pages-artifact@v2
