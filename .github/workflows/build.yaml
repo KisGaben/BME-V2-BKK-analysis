@@ -1,0 +1,46 @@
+name: build
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    # Build the book
+    - name: Build notebook
+      run: |
+        mkdir build
+        jupyter nbconvert --to notebook --execute final.ipynb
+        jupyter nbconvert final.nbconvert.ipynb --to html --no-input --template classic --output build/index.html
+
+    - name: Publish content
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: "build"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
