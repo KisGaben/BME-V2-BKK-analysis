@@ -1,16 +1,10 @@
-# Big Data Házi feladat 2022
+# BME V2 analízis tömegközlekedés szempontjából
 
-Készítők: Csilling Tamás és Knyihár Gábor
+## Eredmények
 
-## Feladat (BKK3)
+[https://kisgaben.github.io/BME-V2-BKK-analysis/](https://kisgaben.github.io/BME-V2-BKK-analysis/)
 
-Az I épületből este 10-kor, tömegközlekedéssel elérhető "kocsmák" (i.e., Google Maps találat erre a keresésre) elemzése
-
-[További részletek](doc/task.md)
-
-## Megoldás
-
-### Lefuttatott notebook
+## Lefuttatott notebook
 
 [Notebook](final.ipynb)
 
